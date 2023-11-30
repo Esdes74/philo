@@ -6,7 +6,7 @@
 #    By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/13 16:40:33 by eslamber          #+#    #+#              #
-#    Updated: 2023/11/30 11:36:47 by eslamber         ###   ########.fr        #
+#    Updated: 2023/11/30 19:56:07 by eslamber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@
 #
 
 # Compilation flags
-FLAGS := -Wall -Werror -Wextra
+FLAGS := -Wall -Werror -Wextra -pthread
 CC := gcc
 
 #
@@ -31,7 +31,9 @@ NAME := philo
 HEADER := philo.h
 
 # Definition of files variables
-SRC := main.c 
+SRC := main.c \
+	   free_all.c \
+	   error.c
 OBJ := $(SRC:%.c=.obj/%.o)
 
 #
