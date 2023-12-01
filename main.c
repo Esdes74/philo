@@ -6,32 +6,38 @@
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 11:38:19 by eslamber          #+#    #+#             */
-/*   Updated: 2023/11/30 20:08:39 by eslamber         ###   ########.fr       */
+/*   Updated: 2023/12/01 17:00:09 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int	init_philo(char **av, t_philo *ph);
-static int	init_mutex(t_philo *ph);
+static int	init_philo(char **av, t_generals *ph);
+static int	init_mutex(t_generals *ph);
 
 int	main(int ac, char **av)
 {
-	t_philo	philo;
+	t_generals	ph;
 
 	if (ac < 5)
 		return (error(NOT_ENOUGH_ARG), 1);
 	else if (ac > 6)
 		return (error(TOO_MANY_ARG), 1);
-	if (init_philo(av, &philo) == 1)
+	if (init_philo(av, &ph) == 1)
 		return (1);
-	if (init_mutex(&philo) == 1)
+	if (init_mutex(&ph) == 1)
 		return (1);
-	return (free_all(&philo), 0);
+	if (philo(&ph) == 1)
+		return (1);
+	return (free_all(&ph), 0);
 }
 
-static int	init_philo(char **av, t_philo *ph)
+static int	init_philo(char **av, t_generals *ph)
 {
+	ph->ready = -1;
+	ph->start = 0;
+	ph->dead = 0;
+	ph->err_thread = 0;
 	ph->nb_philo = ft_atoi(av[1]);
 	ph->time_die = ft_atoi(av[2]);
 	ph->time_eat = ft_atoi(av[3]);
@@ -48,12 +54,14 @@ static int	init_philo(char **av, t_philo *ph)
 	return (0);
 }
 
-static int	init_mutex(t_philo *ph)
+static int	init_mutex(t_generals *ph)
 {
 	size_t	i;
 	size_t	j;
 
 	i = 0;
+	if (pthread_mutex_init(&ph->mutex_print, NULL) != 0)
+		return (error(MUTEX_INIT), free(ph->forks), 1);
 	while (i < ph->nb_philo)
 	{
 		if (pthread_mutex_init(&ph->forks[i++], NULL) != 0)
@@ -63,9 +71,11 @@ static int	init_mutex(t_philo *ph)
 		}
 	}
 	j = 0;
-	while (j < i && i != ph->nb_philo)
-		pthread_mutex_destroy(&ph->forks[j++]);
-	if (ph->nb_philo != i)
-		return (free(ph->forks), 1);
+	if (i != ph->nb_philo)
+	{
+		while (j < i && i != ph->nb_philo)
+			pthread_mutex_destroy(&ph->forks[j++]);
+		return (pthread_mutex_destroy(&ph->mutex_print), free(ph->forks), 1);
+	}
 	return (0);
 }

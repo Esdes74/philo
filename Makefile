@@ -6,7 +6,7 @@
 #    By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/13 16:40:33 by eslamber          #+#    #+#              #
-#    Updated: 2023/11/30 19:56:07 by eslamber         ###   ########.fr        #
+#    Updated: 2023/12/01 16:56:34 by eslamber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,10 @@ HEADER := philo.h
 
 # Definition of files variables
 SRC := main.c \
+	   philo.c \
+	   behavior.c \
+	   hour.c \
+	   print.c \
 	   free_all.c \
 	   error.c
 OBJ := $(SRC:%.c=.obj/%.o)
@@ -55,11 +59,11 @@ $(LIB): FORCE
 debug:
 	make -C libft debug
 	make -C ./ "FLAGS = -Wall -Wextra -fsanitize=address \
-	-fno-omit-frame-pointer -g3"
+	-fno-omit-frame-pointer -g3 -pthread"
 
 val_deb:
 	make -C libft valgrind_deb
-	make -C ./ "FLAGS = -Wall -Werror -Wextra -g3"
+	make -C ./ "FLAGS = -Wall -Werror -Wextra -g3 -pthread"
 
 #
 ### Cleanup rules
