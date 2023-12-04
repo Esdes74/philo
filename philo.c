@@ -6,7 +6,7 @@
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 11:15:25 by eslamber          #+#    #+#             */
-/*   Updated: 2023/12/01 15:57:37 by eslamber         ###   ########.fr       */
+/*   Updated: 2023/12/01 22:47:08 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static int	init_philo(t_generals *gn, t_philo *ph);
 static void	join_philo(t_generals *gn, t_philo *ph);
+static int	check_meal(t_generals *gn, const t_philo *ph);
 
 int	philo(t_generals *gn)
 {
@@ -24,7 +25,7 @@ int	philo(t_generals *gn)
 		return (error(MALLOC), 1);
 	if (init_philo(gn, philo) == 1)
 		return (1);
-	while (gn->dead == 0)
+	while (gn->dead == 0 && check_meal(gn, philo) != 1)
 		continue ;
 	join_philo(gn, philo);
 	return (free(philo), 0);
@@ -47,6 +48,9 @@ static int	init_philo(t_generals *gn, t_philo *ph)
 		i++;
 	}
 	gn->start = hour();
+	pthread_mutex_lock(&gn->mutex_print);
+	ft_printf_fd(2, "start = %d\n", gn->start);
+	pthread_mutex_unlock(&gn->mutex_print);
 	if (i == gn->nb_philo)
 		gn->ready = 1;
 	else
@@ -68,4 +72,25 @@ static void	join_philo(t_generals *gn, t_philo *ph)
 	else
 		while (i < gn->err_thread)
 			pthread_join(ph[i++].id, NULL);
+}
+
+static int	check_meal(t_generals *gn, const t_philo *ph)
+{
+	size_t	i;
+	t_time	last_meal;
+	t_time	now;
+
+	i = 0;
+	while (i < gn->nb_philo)
+	{
+		now = hour();
+		last_meal = now - ph[i].time;
+		if (last_meal >= (t_time) gn->time_die \
+		&& now - gn->start >= (t_time) gn->time_die)
+		{
+			print(hour() - gn->start, ph[i], DIED, &gn->mutex_print);
+			return (1);
+		}
+	}
+	return (0);
 }

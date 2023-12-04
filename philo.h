@@ -6,7 +6,7 @@
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 11:37:51 by eslamber          #+#    #+#             */
-/*   Updated: 2023/12/01 17:01:05 by eslamber         ###   ########.fr       */
+/*   Updated: 2023/12/01 22:29:54 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ void		*behavior(void *ph);
 
 long int	hour(void);
 
-void		print(size_t id, t_time h, char *mess, pthread_mutex_t *mute);
+void		print(t_time h, const t_philo ph, char *mess, \
+pthread_mutex_t *mute);
 
 // Error gestion
 
