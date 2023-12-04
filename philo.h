@@ -6,7 +6,7 @@
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 11:37:51 by eslamber          #+#    #+#             */
-/*   Updated: 2023/12/01 22:29:54 by eslamber         ###   ########.fr       */
+/*   Updated: 2023/12/04 15:46:29 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ typedef struct s_generals
 {
 	int				ready;
 	int				nb_max_eat;
-	size_t			dead;
-	size_t			err_thread;
-	size_t			nb_philo;
-	size_t			time_die;
-	size_t			time_eat;
-	size_t			time_sleep;
+	int				dead;
+	int				err_thread;
+	int				nb_philo;
+	int				time_die;
+	int				time_eat;
+	int				time_sleep;
 	pthread_mutex_t	mutex_print;
 	pthread_mutex_t	*forks;
 	t_time			start;
@@ -44,7 +44,10 @@ typedef struct s_generals
 
 typedef struct s_philo
 {
-	size_t		i;
+	int			right_alloc;
+	int			left_alloc;
+	int			iter;
+	int			i;
 	pthread_t	id;
 	t_time		time;
 	t_generals	*inf;
@@ -57,6 +60,7 @@ typedef enum e_error
 	MALLOC,
 	MUTEX_INIT,
 	CREAT_THREAD,
+	WRONG_ARGS,
 }	t_error;
 
 // Philos gestion
@@ -77,5 +81,7 @@ void		error(t_error err);
 // Free functions
 
 void		free_all(t_generals *ph);
+
+void		release_forks(size_t i, t_philo *ph, t_generals *gn);
 
 #endif

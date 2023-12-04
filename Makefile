@@ -6,7 +6,7 @@
 #    By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/13 16:40:33 by eslamber          #+#    #+#              #
-#    Updated: 2023/12/01 16:56:34 by eslamber         ###   ########.fr        #
+#    Updated: 2023/12/04 14:50:31 by eslamber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRC := main.c \
 	   hour.c \
 	   print.c \
 	   free_all.c \
+	   release_forks.c \
 	   error.c
 OBJ := $(SRC:%.c=.obj/%.o)
 

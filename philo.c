@@ -6,7 +6,7 @@
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 11:15:25 by eslamber          #+#    #+#             */
-/*   Updated: 2023/12/01 22:47:08 by eslamber         ###   ########.fr       */
+/*   Updated: 2023/12/04 15:50:15 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 static int	init_philo(t_generals *gn, t_philo *ph);
 static void	join_philo(t_generals *gn, t_philo *ph);
-static int	check_meal(t_generals *gn, const t_philo *ph);
+static int	check_meal(t_generals *gn, t_philo *ph);
+static int	check_iter(int max, const int nb_philo, const t_philo *ph);
 
 int	philo(t_generals *gn)
 {
@@ -33,7 +34,7 @@ int	philo(t_generals *gn)
 
 static int	init_philo(t_generals *gn, t_philo *ph)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (i < gn->nb_philo)
@@ -48,9 +49,6 @@ static int	init_philo(t_generals *gn, t_philo *ph)
 		i++;
 	}
 	gn->start = hour();
-	pthread_mutex_lock(&gn->mutex_print);
-	ft_printf_fd(2, "start = %d\n", gn->start);
-	pthread_mutex_unlock(&gn->mutex_print);
 	if (i == gn->nb_philo)
 		gn->ready = 1;
 	else
@@ -63,7 +61,7 @@ static int	init_philo(t_generals *gn, t_philo *ph)
 
 static void	join_philo(t_generals *gn, t_philo *ph)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	if (gn->err_thread == 0)
@@ -74,9 +72,9 @@ static void	join_philo(t_generals *gn, t_philo *ph)
 			pthread_join(ph[i++].id, NULL);
 }
 
-static int	check_meal(t_generals *gn, const t_philo *ph)
+static int	check_meal(t_generals *gn, t_philo *ph)
 {
-	size_t	i;
+	int		i;
 	t_time	last_meal;
 	t_time	now;
 
@@ -88,9 +86,32 @@ static int	check_meal(t_generals *gn, const t_philo *ph)
 		if (last_meal >= (t_time) gn->time_die \
 		&& now - gn->start >= (t_time) gn->time_die)
 		{
+			release_forks(i, &ph[i], gn);
 			print(hour() - gn->start, ph[i], DIED, &gn->mutex_print);
 			return (1);
 		}
+		if (gn->nb_max_eat >= 0)
+			if (check_iter(gn->nb_max_eat, gn->nb_philo, ph) == 1)
+				return (1);
+	}
+	return (0);
+}
+
+static int	check_iter(int max, const int nb_philo, const t_philo *ph)
+{
+	int	i;
+
+	i = 0;
+	while (i < nb_philo && ph[i].iter >= max)
+	{
+		usleep(ph->inf->time_eat);
+		i++;
+	}
+	if (i == nb_philo)
+	{
+		print(hour() - ph->inf->start, ph[i - 1], "enought", \
+		&ph->inf->mutex_print);
+		return (1);
 	}
 	return (0);
 }

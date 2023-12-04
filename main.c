@@ -6,13 +6,14 @@
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 11:38:19 by eslamber          #+#    #+#             */
-/*   Updated: 2023/12/01 17:00:09 by eslamber         ###   ########.fr       */
+/*   Updated: 2023/12/04 15:46:16 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 static int	init_philo(char **av, t_generals *ph);
+static int	check_arg(char *av, t_generals *ph);
 static int	init_mutex(t_generals *ph);
 
 int	main(int ac, char **av)
@@ -47,6 +48,8 @@ static int	init_philo(char **av, t_generals *ph)
 		ph->nb_max_eat = ft_atoi(av[5]);
 	else
 		ph->nb_max_eat = -1;
+	if (check_arg(av[5], ph) == 1)
+		return (1);
 	ph->forks = (pthread_mutex_t *) malloc(sizeof(pthread_mutex_t) * \
 	(ph->nb_philo + 1));
 	if (ph->forks == NULL)
@@ -77,5 +80,15 @@ static int	init_mutex(t_generals *ph)
 			pthread_mutex_destroy(&ph->forks[j++]);
 		return (pthread_mutex_destroy(&ph->mutex_print), free(ph->forks), 1);
 	}
+	return (0);
+}
+
+static int	check_arg(char *av, t_generals *ph)
+{
+	if (ph->nb_philo < 0 || ph->time_die < 0 || ph->time_eat < 0 \
+	|| ph->time_sleep < 0)
+		return (error(WRONG_ARGS), 1);
+	else if (av != NULL && ph->nb_max_eat < 0)
+		return (error(WRONG_ARGS), 1);
 	return (0);
 }

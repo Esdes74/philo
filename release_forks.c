@@ -1,24 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_all.c                                         :+:      :+:    :+:   */
+/*   release_forks.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/30 19:35:21 by eslamber          #+#    #+#             */
-/*   Updated: 2023/12/04 12:10:46 by eslamber         ###   ########.fr       */
+/*   Created: 2023/12/04 14:47:55 by eslamber          #+#    #+#             */
+/*   Updated: 2023/12/04 15:04:19 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	free_all(t_generals *ph)
+void	release_forks(size_t i, t_philo *ph, t_generals *gn)
 {
-	size_t	i;
-
-	i = 0;
-	while (i < ph->nb_philo)
-		pthread_mutex_destroy(&ph->forks[i++]);
-	free(ph->forks);
-	pthread_mutex_destroy(&ph->mutex_print);
+	if (ph->right_alloc == 1)
+	{
+		ph->right_alloc = 0;
+		pthread_mutex_unlock(&gn->forks[i]);
+	}
+	if (ph->left_alloc == 1)
+	{
+		if (i == 0)
+		{
+			ph->left_alloc = 0;
+			pthread_mutex_unlock(&gn->forks[gn->nb_philo - 1]);
+		}
+		else
+		{
+			ph->left_alloc = 0;
+			pthread_mutex_unlock(&gn->forks[i - 1]);
+		}
+	}
 }
