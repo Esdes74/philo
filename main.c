@@ -6,7 +6,7 @@
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 11:38:19 by eslamber          #+#    #+#             */
-/*   Updated: 2024/01/05 15:57:27 by eslamber         ###   ########.fr       */
+/*   Updated: 2024/01/05 19:09:28 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static int	init_philo(char **av, t_generals *ph)
 	ph->time_sleep = ft_atoi(av[4]);
 	ph->forks = 0;
 	ph->mutex_print.val = -1;
+	ph->mutex_print.id = 0;
 	if (av[5] != NULL)
 		ph->nb_max_eat = ft_atoi(av[5]);
 	else
@@ -69,6 +70,7 @@ static int	init_mutex(t_generals *ph)
 	while (i < ph->nb_philo)
 	{
 		ph->forks[i].val = -1;
+		ph->forks[i].id = 0;
 		if (pthread_mutex_init(&ph->forks[i++].mute, NULL) != 0)
 		{
 			error(MUTEX_INIT);

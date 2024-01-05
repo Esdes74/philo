@@ -6,7 +6,7 @@
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 11:37:51 by eslamber          #+#    #+#             */
-/*   Updated: 2024/01/05 15:53:56 by eslamber         ###   ########.fr       */
+/*   Updated: 2024/01/05 18:53:00 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ typedef long int	t_time;
 
 typedef struct s_mutex
 {
+	char			val;
+	pthread_t		id;
 	pthread_mutex_t	mute;
-	pthread_t		val;
 }	t_mutex;
 
 typedef struct s_generals
@@ -71,8 +72,8 @@ typedef enum e_error
 
 typedef enum e_mod
 {
-	LOCK,
-	UNLOCK,
+	PRINT,
+	FORKS,
 }	t_mod;
 
 // Philos gestion
@@ -85,6 +86,9 @@ long int	hour(void);
 
 void		print(t_time h, const t_philo ph, char *mess, \
 pthread_mutex_t *mute);
+
+void		lock_unlock_mutex(pthread_t id, t_mod mod, int *dead, \
+		t_mutex *mute);
 
 // Error gestion
 

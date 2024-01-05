@@ -6,7 +6,7 @@
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 11:15:25 by eslamber          #+#    #+#             */
-/*   Updated: 2024/01/05 15:03:43 by eslamber         ###   ########.fr       */
+/*   Updated: 2024/01/05 19:11:01 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,9 @@ static int	check_iter(int max, const int nb_philo, const t_philo *ph)
 	{
 		print(hour() - ph->inf->start, ph[i - 1], "enought", \
 		&ph->inf->mutex_print.mute);
+		lock_unlock_mutex(1, PRINT, &ph->inf->dead, &ph->inf->mutex_print);
+		ph->inf->dead = 1;
+		lock_unlock_mutex(-1, PRINT, &ph->inf->dead, &ph->inf->mutex_print);
 		return (1);
 	}
 	return (0);

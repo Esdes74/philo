@@ -6,7 +6,7 @@
 #    By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/13 16:40:33 by eslamber          #+#    #+#              #
-#    Updated: 2024/01/05 15:04:38 by eslamber         ###   ########.fr        #
+#    Updated: 2024/01/05 18:41:33 by eslamber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRC := main.c \
 	   print.c \
 	   free_all.c \
 	   release_forks.c \
+	   lock_unlock_mutex.c \
 	   error.c
 OBJ := $(SRC:%.c=.obj/%.o)
 
