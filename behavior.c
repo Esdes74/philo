@@ -6,7 +6,7 @@
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 15:11:48 by eslamber          #+#    #+#             */
-/*   Updated: 2023/12/04 15:04:45 by eslamber         ###   ########.fr       */
+/*   Updated: 2024/01/05 15:07:53 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ void	*behavior(void *ph)
 	{
 		eat(philo);
 		print(hour() - philo->inf->start, *philo, SLEE, \
-		&philo->inf->mutex_print);
+		&philo->inf->mutex_print.mute);
 		usleep(philo->inf->time_sleep * 1000);
 		print(hour() - philo->inf->start, *philo, THIN, \
-		&philo->inf->mutex_print);
+		&philo->inf->mutex_print.mute);
 	}
 	return (NULL);
 }
@@ -41,7 +41,7 @@ void	*behavior(void *ph)
 static void	eat(t_philo *ph)
 {
 	alloc_forks(ph);
-	print(hour() - ph->inf->start, *ph, EATI, &(ph->inf->mutex_print));
+	print(hour() - ph->inf->start, *ph, EATI, &(ph->inf->mutex_print.mute));
 	ph->time = hour();
 	usleep(ph->inf->time_eat * 1000);
 	ph->iter = ph->iter + 1;
@@ -58,18 +58,18 @@ static void	philo_init(t_philo *ph)
 
 static void	alloc_forks(t_philo *ph)
 {
-	pthread_mutex_lock(&ph->inf->forks[ph->i]);
-	print(hour() - ph->inf->start, *ph, FORK, &(ph->inf->mutex_print));
+	pthread_mutex_lock(&ph->inf->forks[ph->i].mute);
+	print(hour() - ph->inf->start, *ph, FORK, &(ph->inf->mutex_print.mute));
 	ph->right_alloc = 1;
 	if (ph->i == 0)
 	{
 		ph->left_alloc = 1;
-		pthread_mutex_lock(&ph->inf->forks[ph->inf->nb_philo - 1]);
+		pthread_mutex_lock(&ph->inf->forks[ph->inf->nb_philo - 1].mute);
 	}
 	else
 	{
 		ph->left_alloc = 1;
-		pthread_mutex_lock(&ph->inf->forks[ph->i - 1]);
+		pthread_mutex_lock(&ph->inf->forks[ph->i - 1].mute);
 	}
-	print(hour() - ph->inf->start, *ph, FORK, &(ph->inf->mutex_print));
+	print(hour() - ph->inf->start, *ph, FORK, &(ph->inf->mutex_print.mute));
 }

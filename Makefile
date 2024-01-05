@@ -6,7 +6,7 @@
 #    By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/13 16:40:33 by eslamber          #+#    #+#              #
-#    Updated: 2023/12/04 14:50:31 by eslamber         ###   ########.fr        #
+#    Updated: 2024/01/05 15:04:38 by eslamber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,7 @@ $(LIB): FORCE
 # Debug
 debug:
 	make -C libft debug
-	make -C ./ "FLAGS = -Wall -Wextra -fsanitize=address \
+	make -C ./ "FLAGS = -Wall -Wextra -fsanitize=thread \
 	-fno-omit-frame-pointer -g3 -pthread"
 
 val_deb:

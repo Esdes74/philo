@@ -6,7 +6,7 @@
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 11:38:19 by eslamber          #+#    #+#             */
-/*   Updated: 2023/12/04 15:46:16 by eslamber         ###   ########.fr       */
+/*   Updated: 2024/01/05 15:57:27 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,14 @@ static int	init_philo(char **av, t_generals *ph)
 	ph->time_eat = ft_atoi(av[3]);
 	ph->time_sleep = ft_atoi(av[4]);
 	ph->forks = 0;
+	ph->mutex_print.val = -1;
 	if (av[5] != NULL)
 		ph->nb_max_eat = ft_atoi(av[5]);
 	else
 		ph->nb_max_eat = -1;
 	if (check_arg(av[5], ph) == 1)
 		return (1);
-	ph->forks = (pthread_mutex_t *) malloc(sizeof(pthread_mutex_t) * \
+	ph->forks = (t_mutex *) malloc(sizeof(t_mutex) * \
 	(ph->nb_philo + 1));
 	if (ph->forks == NULL)
 		return (error(MALLOC), 1);
@@ -59,15 +60,16 @@ static int	init_philo(char **av, t_generals *ph)
 
 static int	init_mutex(t_generals *ph)
 {
-	size_t	i;
-	size_t	j;
+	int	i;
+	int	j;
 
 	i = 0;
-	if (pthread_mutex_init(&ph->mutex_print, NULL) != 0)
+	if (pthread_mutex_init(&ph->mutex_print.mute, NULL) != 0)
 		return (error(MUTEX_INIT), free(ph->forks), 1);
 	while (i < ph->nb_philo)
 	{
-		if (pthread_mutex_init(&ph->forks[i++], NULL) != 0)
+		ph->forks[i].val = -1;
+		if (pthread_mutex_init(&ph->forks[i++].mute, NULL) != 0)
 		{
 			error(MUTEX_INIT);
 			break ;
@@ -77,8 +79,9 @@ static int	init_mutex(t_generals *ph)
 	if (i != ph->nb_philo)
 	{
 		while (j < i && i != ph->nb_philo)
-			pthread_mutex_destroy(&ph->forks[j++]);
-		return (pthread_mutex_destroy(&ph->mutex_print), free(ph->forks), 1);
+			pthread_mutex_destroy(&ph->forks[j++].mute);
+		return (pthread_mutex_destroy(&ph->mutex_print.mute), free(ph->forks), \
+				1);
 	}
 	return (0);
 }

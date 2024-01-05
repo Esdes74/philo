@@ -6,7 +6,7 @@
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 11:15:25 by eslamber          #+#    #+#             */
-/*   Updated: 2023/12/04 15:50:15 by eslamber         ###   ########.fr       */
+/*   Updated: 2024/01/05 15:03:43 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static int	check_meal(t_generals *gn, t_philo *ph)
 		&& now - gn->start >= (t_time) gn->time_die)
 		{
 			release_forks(i, &ph[i], gn);
-			print(hour() - gn->start, ph[i], DIED, &gn->mutex_print);
+			print(hour() - gn->start, ph[i], DIED, &gn->mutex_print.mute);
 			return (1);
 		}
 		if (gn->nb_max_eat >= 0)
@@ -110,7 +110,7 @@ static int	check_iter(int max, const int nb_philo, const t_philo *ph)
 	if (i == nb_philo)
 	{
 		print(hour() - ph->inf->start, ph[i - 1], "enought", \
-		&ph->inf->mutex_print);
+		&ph->inf->mutex_print.mute);
 		return (1);
 	}
 	return (0);

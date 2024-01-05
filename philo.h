@@ -6,7 +6,7 @@
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 11:37:51 by eslamber          #+#    #+#             */
-/*   Updated: 2023/12/04 15:46:29 by eslamber         ###   ########.fr       */
+/*   Updated: 2024/01/05 15:53:56 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,12 @@
 
 typedef long int	t_time;
 
+typedef struct s_mutex
+{
+	pthread_mutex_t	mute;
+	pthread_t		val;
+}	t_mutex;
+
 typedef struct s_generals
 {
 	int				ready;
@@ -37,8 +43,8 @@ typedef struct s_generals
 	int				time_die;
 	int				time_eat;
 	int				time_sleep;
-	pthread_mutex_t	mutex_print;
-	pthread_mutex_t	*forks;
+	t_mutex			mutex_print;
+	t_mutex			*forks;
 	t_time			start;
 }	t_generals;
 
@@ -62,6 +68,12 @@ typedef enum e_error
 	CREAT_THREAD,
 	WRONG_ARGS,
 }	t_error;
+
+typedef enum e_mod
+{
+	LOCK,
+	UNLOCK,
+}	t_mod;
 
 // Philos gestion
 
