@@ -1,43 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/18 15:07:12 by eslamber          #+#    #+#             */
-/*   Updated: 2024/01/18 16:52:39 by eslamber         ###   ########.fr       */
+/*   Created: 2024/01/18 15:23:36 by eslamber          #+#    #+#             */
+/*   Updated: 2024/01/18 16:49:26 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#include "philo.h"
 
-# include <pthread.h>
-# include <sys/time.h>
-# include "libft/libft.h"
-
-typedef struct s_gen
+void	error(enum e_err err, enum e_err_type type)
 {
-	size_t	nb_philo;
-	size_t	die;
-	size_t	eat;
-	size_t	sleep;
-	size_t	nb_eat;
-}	t_gen;
-
-enum	e_err
-{
-	ARG,
-	ARG_NEGATIF
-};
-
-enum	e_err_type
-{
-	CONT,
-	END
-};
-
-void	error(enum e_err err, enum e_err_type type);
-
-#endif
+	if (err == ARG)
+	{
+		ft_printf_fd(2, "Error : There is a problem with arguments.\n");
+		ft_printf_fd(2, "Try with \"./philo nb_philo time_to_die time_to_eat \
+time_to_sleep nb_must_eat(optional)\".\n");
+	}
+	else if (err == ARG_NEGATIF)
+		ft_printf_fd(2, "Error : Arguments must be positifs\n");
+	if (type == END)
+		exit(1);
+}

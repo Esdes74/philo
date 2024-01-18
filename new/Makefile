@@ -6,7 +6,7 @@
 #    By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 15:06:57 by eslamber          #+#    #+#              #
-#    Updated: 2024/01/18 15:07:01 by eslamber         ###   ########.fr        #
+#    Updated: 2024/01/18 15:23:30 by eslamber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,8 @@ NAME := philo
 HEADER := philo.h
 
 # Definition of files variables
-SRC := main.c
+SRC := main.c \
+	   error.c
 OBJ := $(SRC:%.c=.obj/%.o)
 
 #
