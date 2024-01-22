@@ -6,7 +6,7 @@
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 15:07:12 by eslamber          #+#    #+#             */
-/*   Updated: 2024/01/18 16:52:39 by eslamber         ###   ########.fr       */
+/*   Updated: 2024/01/19 14:04:51 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@
 # include <sys/time.h>
 # include "libft/libft.h"
 
+typedef struct s_mutex
+{
+	int				muted;
+	pthread_mutex_t	mutex;
+}	t_mutex;
+
 typedef struct s_gen
 {
 	size_t	nb_philo;
@@ -24,7 +30,18 @@ typedef struct s_gen
 	size_t	eat;
 	size_t	sleep;
 	size_t	nb_eat;
+	t_mutex	dead;
+	t_mutex	*forks;
+	pthread_mutex_t	mx_print;
+	pthread_mutex_t	mx_init;
 }	t_gen;
+
+typedef struct s_philo
+{
+	size_t	id;
+	t_mutex	*fork;
+	t_mutex	*next_fork;
+}
 
 enum	e_err
 {

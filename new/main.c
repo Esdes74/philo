@@ -6,7 +6,7 @@
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 15:06:42 by eslamber          #+#    #+#             */
-/*   Updated: 2024/01/18 16:52:10 by eslamber         ###   ########.fr       */
+/*   Updated: 2024/01/19 12:47:54 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int ac, char **av)
 {
 	t_gen	inf;
 
-	if (ac >= 5 && <= 6)
+	if (ac >= 5 && ac <= 6)
 		init(ac, av, &inf);
 	else
 		error(ARG, END);
