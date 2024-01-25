@@ -6,7 +6,7 @@
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 15:23:36 by eslamber          #+#    #+#             */
-/*   Updated: 2024/01/18 16:49:26 by eslamber         ###   ########.fr       */
+/*   Updated: 2024/01/25 12:11:05 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ time_to_sleep nb_must_eat(optional)\".\n");
 	}
 	else if (err == ARG_NEGATIF)
 		ft_printf_fd(2, "Error : Arguments must be positifs\n");
+	else if (err == MUTEX_INIT)
+		ft_printf_fd(2, "Error : Problem with initialisation of mutex\n");
 	if (type == END)
 		exit(1);
 }

@@ -6,7 +6,7 @@
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 15:07:12 by eslamber          #+#    #+#             */
-/*   Updated: 2024/01/19 14:04:51 by eslamber         ###   ########.fr       */
+/*   Updated: 2024/01/25 12:11:27 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ typedef struct s_mutex
 
 typedef struct s_gen
 {
-	size_t	nb_philo;
-	size_t	die;
-	size_t	eat;
-	size_t	sleep;
-	size_t	nb_eat;
-	t_mutex	dead;
-	t_mutex	*forks;
+	size_t			nb_philo;
+	size_t			die;
+	size_t			eat;
+	size_t			sleep;
+	size_t			nb_eat;
+	t_mutex			dead;
+	t_mutex			*forks;
 	pthread_mutex_t	mx_print;
 	pthread_mutex_t	mx_init;
 }	t_gen;
@@ -48,7 +48,8 @@ typedef struct s_philo
 enum	e_err
 {
 	ARG,
-	ARG_NEGATIF
+	ARG_NEGATIF,
+	MUTEX_INIT
 };
 
 enum	e_err_type
