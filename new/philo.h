@@ -6,7 +6,7 @@
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 15:07:12 by eslamber          #+#    #+#             */
-/*   Updated: 2024/01/25 12:11:27 by eslamber         ###   ########.fr       */
+/*   Updated: 2024/01/25 14:02:03 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_gen
 	t_mutex			*forks;
 	pthread_mutex_t	mx_print;
 	pthread_mutex_t	mx_init;
+	t_philo			*tab_philo;
 }	t_gen;
 
 typedef struct s_philo
@@ -43,13 +44,15 @@ typedef struct s_philo
 	size_t	id;
 	t_mutex	*fork;
 	t_mutex	*next_fork;
-}
+	t_gen	*gen;
+}	t_philo;
 
 enum	e_err
 {
 	ARG,
 	ARG_NEGATIF,
-	MUTEX_INIT
+	MUTEX_INIT,
+	MALLOC
 };
 
 enum	e_err_type
@@ -59,5 +62,7 @@ enum	e_err_type
 };
 
 void	error(enum e_err err, enum e_err_type type);
+
+int		philo(t_gen *inf);
 
 #endif
