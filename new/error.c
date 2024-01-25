@@ -6,7 +6,7 @@
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 15:23:36 by eslamber          #+#    #+#             */
-/*   Updated: 2024/01/25 13:58:30 by eslamber         ###   ########.fr       */
+/*   Updated: 2024/01/25 14:18:30 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ time_to_sleep nb_must_eat(optional)\".\n");
 		ft_printf_fd(2, "Error : Problem with initialisation of mutex\n");
 	else if (err == MALLOC)
 		ft_printf_fd(2, "Error : Problem with malloc allocation\n");
+	else if (err == CREAT_THREAD)
+		ft_printf_fd(2, "Error : Problem with thread creation\n");
 	if (type == END)
 		exit(1);
 }

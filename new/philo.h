@@ -6,7 +6,7 @@
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 15:07:12 by eslamber          #+#    #+#             */
-/*   Updated: 2024/01/25 14:02:03 by eslamber         ###   ########.fr       */
+/*   Updated: 2024/01/25 14:17:59 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ enum	e_err
 	ARG,
 	ARG_NEGATIF,
 	MUTEX_INIT,
-	MALLOC
+	MALLOC,
+	CREAT_THREAD
 };
 
 enum	e_err_type
