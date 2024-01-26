@@ -6,14 +6,12 @@
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 15:07:12 by eslamber          #+#    #+#             */
-/*   Updated: 2024/01/25 14:17:59 by eslamber         ###   ########.fr       */
+/*   Updated: 2024/01/26 14:43:38 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
-
-
 
 # include <pthread.h>
 # include <sys/time.h>
@@ -36,15 +34,17 @@ typedef struct s_gen
 	t_mutex			*forks;
 	pthread_mutex_t	mx_print;
 	pthread_mutex_t	mx_init;
+	struct timeval	start;
 	t_philo			*tab_philo;
 }	t_gen;
 
 typedef struct s_philo
 {
-	size_t	id;
-	t_mutex	*fork;
-	t_mutex	*next_fork;
-	t_gen	*gen;
+	size_t		id;
+	pthread_t	id_td;
+	t_mutex		*fork;
+	t_mutex		*next_fork;
+	t_gen		*gen;
 }	t_philo;
 
 enum	e_err

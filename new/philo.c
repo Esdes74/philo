@@ -6,7 +6,7 @@
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 13:47:29 by eslamber          #+#    #+#             */
-/*   Updated: 2024/01/25 14:20:31 by eslamber         ###   ########.fr       */
+/*   Updated: 2024/01/26 14:30:05 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	philo(t_gen *inf)
 		if (creat_philo(i, inf, &inf->tab_philo[i]) == 1)
 			return (1);
 	}
+	gettimeofday(inf->start, NULL);
 	pthread_mutex_unlock(&inf->mx_init);
 }
 
@@ -35,7 +36,9 @@ static int	creat_philo(int i, t_gen *inf, t_philo *ph)
 {
 	ph->id = i;
 	ph->gen = inf;
-	ph->fork = inf->forks[i]
-	ph->next_fork = inf->forks[(i + 1) % inf->nb_philo]
-	return (error(CREAT_THREAD), 1);
+	ph->fork = inf->forks[i];
+	ph->next_fork = inf->forks[(i + 1) % inf->nb_philo];
+	if (pthread_create(&ph->id_th, NULL, behavior, ph) != 0)
+		return (error(CREAT_THREAD), 1);
+	return (0);
 }

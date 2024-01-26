@@ -6,7 +6,7 @@
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 15:06:42 by eslamber          #+#    #+#             */
-/*   Updated: 2024/01/25 14:01:07 by eslamber         ###   ########.fr       */
+/*   Updated: 2024/01/26 14:35:12 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,19 @@ static void	free_all(t_gen *inf);
 int	main(int ac, char **av)
 {
 	t_gen	inf;
+	int		ret_val;
 
+	ret_val = 0;
 	if (ac >= 5 && ac <= 6)
 		init(ac, av, &inf);
 	else
 		error(ARG, END);
 	init_mutex(&inf);
 	if (init_philo(&inf) == 1)
-		return (free_all(&inf), 1);
+		ret_val = 1;
+	wait_threads(&inf);
 	free_all(&inf);
-	return (0);
+	return (ret_val);
 }
 
 static void	init(int ac, char **av, t_gen *inf)
