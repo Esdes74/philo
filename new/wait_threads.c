@@ -6,13 +6,13 @@
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 14:35:31 by eslamber          #+#    #+#             */
-/*   Updated: 2024/01/26 14:43:07 by eslamber         ###   ########.fr       */
+/*   Updated: 2024/01/26 18:21:17 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	wait_threads(y_gen *inf)
+void	wait_threads(t_gen *inf)
 {
 	size_t	i;
 

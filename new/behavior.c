@@ -6,14 +6,14 @@
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 14:31:32 by eslamber          #+#    #+#             */
-/*   Updated: 2024/01/26 14:41:16 by eslamber         ###   ########.fr       */
+/*   Updated: 2024/01/26 18:25:25 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	behavior(t_philo *philo)
+void	*behavior(void *philo)
 {
 	(void) philo;
-	return ;
+	return (NULL);
 }

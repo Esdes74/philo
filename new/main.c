@@ -6,7 +6,7 @@
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 15:06:42 by eslamber          #+#    #+#             */
-/*   Updated: 2024/01/26 14:35:12 by eslamber         ###   ########.fr       */
+/*   Updated: 2024/01/26 18:21:44 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	main(int ac, char **av)
 	else
 		error(ARG, END);
 	init_mutex(&inf);
-	if (init_philo(&inf) == 1)
+	if (philo(&inf) == 1)
 		ret_val = 1;
 	wait_threads(&inf);
 	free_all(&inf);
@@ -107,7 +107,7 @@ static void	free_forks(int i, t_gen *inf)
 
 static void	free_all(t_gen *inf)
 {
-	int	j;
+	size_t	j;
 
 	j = 0;
 	while (j < inf->nb_philo)
