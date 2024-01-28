@@ -6,7 +6,7 @@
 #    By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 15:06:57 by eslamber          #+#    #+#              #
-#    Updated: 2024/01/26 18:17:39 by eslamber         ###   ########.fr        #
+#    Updated: 2024/01/28 13:10:03 by eslamber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRC := main.c \
 	   philo.c \
 	   behavior.c \
 	   wait_threads.c \
+	   print.c \
 	   error.c
 OBJ := $(SRC:%.c=.obj/%.o)
 

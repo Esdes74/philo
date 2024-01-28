@@ -6,7 +6,7 @@
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 14:31:32 by eslamber          #+#    #+#             */
-/*   Updated: 2024/01/26 18:25:25 by eslamber         ###   ########.fr       */
+/*   Updated: 2024/01/28 13:45:35 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 void	*behavior(void *philo)
 {
-	(void) philo;
+	t_philo	*ph;
+
+	ph = (t_philo *) philo;
+	pthread_mutex_lock(&ph->gen->mx_init);
+	pthread_mutex_unlock(&ph->gen->mx_init);
+	print(THIN, ph);
 	return (NULL);
 }

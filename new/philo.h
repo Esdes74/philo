@@ -6,7 +6,7 @@
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 15:07:12 by eslamber          #+#    #+#             */
-/*   Updated: 2024/01/26 18:24:28 by eslamber         ###   ########.fr       */
+/*   Updated: 2024/01/28 13:47:30 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,14 @@
 
 # include <pthread.h>
 # include <sys/time.h>
+# include <stdio.h>
 # include "libft/libft.h"
+
+# define FORK "has taken a fork"
+# define EATI "is eating"
+# define SLEE "is sleeping"
+# define THIN "is thinking"
+# define DIED "died"
 
 typedef struct s_mutex
 {
@@ -25,6 +32,8 @@ typedef struct s_mutex
 
 typedef struct s_gen
 {
+	int				stop;
+	int				died;
 	size_t			nb_philo;
 	size_t			die;
 	size_t			eat;
@@ -69,5 +78,7 @@ int		philo(t_gen *inf);
 void	*behavior(void *philo);
 
 void	wait_threads(t_gen *inf);
+
+void	print(char *mess, t_philo *ph);
 
 #endif
