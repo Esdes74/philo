@@ -6,13 +6,12 @@
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 15:06:42 by eslamber          #+#    #+#             */
-/*   Updated: 2024/01/26 18:21:44 by eslamber         ###   ########.fr       */
+/*   Updated: 2024/01/29 14:42:04 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	init(int ac, char **av, t_gen *inf);
 static void	init_mutex(t_gen *inf);
 static void	free_all(t_gen *inf);
 
@@ -32,35 +31,6 @@ int	main(int ac, char **av)
 	wait_threads(&inf);
 	free_all(&inf);
 	return (ret_val);
-}
-
-static void	init(int ac, char **av, t_gen *inf)
-{
-	int	arg;
-
-	arg = ft_atoi(av[1]);
-	if (arg < 0)
-		error(ARG_NEGATIF, END);
-	inf->nb_philo = (size_t) arg;
-	arg = ft_atoi(av[2]);
-	if (arg < 0)
-		error(ARG_NEGATIF, END);
-	inf->die = (size_t) arg;
-	arg = ft_atoi(av[3]);
-	if (arg < 0)
-		error(ARG_NEGATIF, END);
-	inf->eat = (size_t) arg;
-	arg = ft_atoi(av[4]);
-	if (arg < 0)
-		error(ARG_NEGATIF, END);
-	inf->sleep = (size_t) arg;
-	if (ac == 6)
-	{
-		arg = ft_atoi(av[5]);
-		if (arg < 0)
-			error(ARG_NEGATIF, END);
-		inf->nb_eat = (size_t) arg;
-	}
 }
 
 static void	free_forks(int i, t_gen *inf);

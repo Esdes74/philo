@@ -6,7 +6,7 @@
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 15:07:12 by eslamber          #+#    #+#             */
-/*   Updated: 2024/01/28 13:47:30 by eslamber         ###   ########.fr       */
+/*   Updated: 2024/01/29 14:42:11 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,28 +32,27 @@ typedef struct s_mutex
 
 typedef struct s_gen
 {
-	int				stop;
-	int				died;
 	size_t			nb_philo;
-	size_t			die;
-	size_t			eat;
-	size_t			sleep;
 	size_t			nb_eat;
 	t_mutex			dead;
 	t_mutex			*forks;
 	pthread_mutex_t	mx_print;
 	pthread_mutex_t	mx_init;
+	struct timeval	die;
+	struct timeval	eat;
+	struct timeval	sleep;
 	struct timeval	start;
 	struct s_philo	*tab_philo;
 }	t_gen;
 
 typedef struct s_philo
 {
-	size_t		id;
-	pthread_t	id_th;
-	t_mutex		*fork;
-	t_mutex		*next_fork;
-	t_gen		*gen;
+	size_t			id;
+	pthread_t		id_th;
+	struct timeval	eat;
+	t_mutex			*fork;
+	t_mutex			*next_fork;
+	t_gen			*gen;
 }	t_philo;
 
 enum	e_err
@@ -73,6 +72,8 @@ enum	e_err_type
 
 void	error(enum e_err err, enum e_err_type type);
 
+void	init(int ac, char **av, t_gen *inf);
+
 int		philo(t_gen *inf);
 
 void	*behavior(void *philo);
@@ -80,5 +81,7 @@ void	*behavior(void *philo);
 void	wait_threads(t_gen *inf);
 
 void	print(char *mess, t_philo *ph);
+
+int		compare_time(struct timeval t1, struct timeval t2);
 
 #endif
