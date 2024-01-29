@@ -6,7 +6,7 @@
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 15:06:42 by eslamber          #+#    #+#             */
-/*   Updated: 2024/01/29 14:42:04 by eslamber         ###   ########.fr       */
+/*   Updated: 2024/01/29 16:53:23 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,5 @@ static void	free_all(t_gen *inf)
 	pthread_mutex_destroy(&inf->mx_print);
 	pthread_mutex_destroy(&inf->mx_init);
 	pthread_mutex_destroy(&inf->dead.mutex);
+	free(inf->tab_philo);
 }
