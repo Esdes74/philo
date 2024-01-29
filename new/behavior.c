@@ -6,7 +6,7 @@
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 14:31:32 by eslamber          #+#    #+#             */
-/*   Updated: 2024/01/29 19:14:59 by eslamber         ###   ########.fr       */
+/*   Updated: 2024/01/29 19:42:34 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static int	check_died(t_philo *ph);
 static int	starving(t_philo *ph);
 static void	sleeping(t_philo *ph);
-static void	thinking(t_philo *ph);
 
 void	*behavior(void *philo)
 {
@@ -32,9 +31,14 @@ void	*behavior(void *philo)
 	{
 		while (check_died(ph) == 0 && eating(ph) == 1)
 			starving(ph);
+		starving(ph);
+		if (check_died(ph) != 0)
+			return (NULL);
 		sleeping(ph);
 		starving(ph);
-		thinking(ph);
+		if (check_died(ph) != 0)
+			return (NULL);
+		print(THIN, ph);
 		starving(ph);
 	}
 	return (NULL);
@@ -42,13 +46,25 @@ void	*behavior(void *philo)
 
 static void	sleeping(t_philo *ph)
 {
-	print(SLEE, ph);
-	usleep(ph->gen->sleep.tv_sec * 1000000 + ph->gen->sleep.tv_usec);
-}
+	struct timeval	now;
+	struct timeval	waited;
+	struct timeval	comp;
 
-static void	thinking(t_philo *ph)
-{
-	print(THIN, ph);
+	print(SLEE, ph);
+	gettimeofday(&now, NULL);
+	gettimeofday(&waited, NULL);
+	comp.tv_usec = (1000000 + waited.tv_usec - now.tv_usec) % 1000000;
+	comp.tv_sec = waited.tv_sec - now.tv_sec - \
+	(waited.tv_usec < now.tv_usec);
+	while (check_died() == 0 && compare_time(ph->gen->sleep, comp) < 0)
+	{
+		starving(ph);
+		usleep(100);
+		gettimeofday(&waited, NULL);
+		comp.tv_usec = (1000000 + waited.tv_usec - now.tv_usec) % 1000000;
+		comp.tv_sec = waited.tv_sec - now.tv_sec - \
+		(waited.tv_usec < now.tv_usec);
+	}
 }
 
 static int	check_died(t_philo *ph)
