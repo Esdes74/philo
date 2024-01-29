@@ -6,7 +6,7 @@
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 13:47:29 by eslamber          #+#    #+#             */
-/*   Updated: 2024/01/29 14:30:22 by eslamber         ###   ########.fr       */
+/*   Updated: 2024/01/29 16:59:20 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	philo(t_gen *inf)
 
 static int	creat_philo(int i, t_gen *inf, t_philo *ph)
 {
-	gettimeofday(&ph->eat, NULL);
 	ph->id = i + 1;
 	ph->gen = inf;
 	ph->fork = &inf->forks[i];

@@ -6,7 +6,7 @@
 #    By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 15:06:57 by eslamber          #+#    #+#              #
-#    Updated: 2024/01/29 14:42:32 by eslamber         ###   ########.fr        #
+#    Updated: 2024/01/29 18:29:52 by eslamber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@
 #
 
 # Compilation flags
-FLAGS := -Wall -Werror -Wextra -pthread
+FLAGS := -Wall -Werror -Wextra -pthread -O3
 CC := gcc
 
 #
@@ -35,6 +35,7 @@ SRC := main.c \
 	   init.c \
 	   philo.c \
 	   behavior.c \
+	   eating.c \
 	   wait_threads.c \
 	   compare_time.c \
 	   print.c \
