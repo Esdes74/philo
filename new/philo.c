@@ -6,13 +6,14 @@
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 13:47:29 by eslamber          #+#    #+#             */
-/*   Updated: 2024/01/29 16:59:20 by eslamber         ###   ########.fr       */
+/*   Updated: 2024/01/31 11:16:02 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 static int	creat_philo(int i, t_gen *inf, t_philo *ph);
+static void	destroy_mutex(t_gen *inf, size_t i);
 
 int	philo(t_gen *inf)
 {
@@ -37,10 +38,22 @@ int	philo(t_gen *inf)
 static int	creat_philo(int i, t_gen *inf, t_philo *ph)
 {
 	ph->id = i + 1;
+	ph->nb_eat.muted = 0;
+	if (pthread_mutex_init(&ph->nb_eat.mutex, NULL) != 0)
+		return (destroy_mutex(inf, i), error(MUTEX_INIT, CONT), 1);
 	ph->gen = inf;
 	ph->fork = &inf->forks[i];
 	ph->next_fork = &inf->forks[(i + 1) % inf->nb_philo];
 	if (pthread_create(&ph->id_th, NULL, behavior, ph) != 0)
 		return (error(CREAT_THREAD, CONT), 1);
 	return (0);
+}
+
+static void	destroy_mutex(t_gen *inf, size_t i)
+{
+	size_t	j;
+
+	j = 0;
+	while (j < i)
+		pthread_mutex_destroy(&inf->tab_philo[j++].nb_eat.mutex);
 }

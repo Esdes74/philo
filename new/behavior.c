@@ -6,7 +6,7 @@
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 14:31:32 by eslamber          #+#    #+#             */
-/*   Updated: 2024/01/29 19:42:34 by eslamber         ###   ########.fr       */
+/*   Updated: 2024/01/31 11:27:52 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static int	check_died(t_philo *ph);
 static int	starving(t_philo *ph);
 static void	sleeping(t_philo *ph);
+static void	enought(t_philo *ph);
 
 void	*behavior(void *philo)
 {
@@ -31,6 +32,7 @@ void	*behavior(void *philo)
 	{
 		while (check_died(ph) == 0 && eating(ph) == 1)
 			starving(ph);
+		enought(ph);
 		starving(ph);
 		if (check_died(ph) != 0)
 			return (NULL);
@@ -56,10 +58,11 @@ static void	sleeping(t_philo *ph)
 	comp.tv_usec = (1000000 + waited.tv_usec - now.tv_usec) % 1000000;
 	comp.tv_sec = waited.tv_sec - now.tv_sec - \
 	(waited.tv_usec < now.tv_usec);
-	while (check_died() == 0 && compare_time(ph->gen->sleep, comp) < 0)
+	while (check_died(ph) == 0 && compare_time(ph->gen->sleep, comp) < 0)
 	{
 		starving(ph);
 		usleep(100);
+		starving(ph);
 		gettimeofday(&waited, NULL);
 		comp.tv_usec = (1000000 + waited.tv_usec - now.tv_usec) % 1000000;
 		comp.tv_sec = waited.tv_sec - now.tv_sec - \
@@ -94,4 +97,28 @@ static int	starving(t_philo *ph)
 		pthread_mutex_unlock(&ph->gen->dead.mutex);
 	}
 	return (0);
+}
+
+static void	enought(t_philo *ph)
+{
+	size_t	i;
+
+	if (ph->gen->stop_enought == 0)
+		return ;
+	i = 0;
+	while (i < ph->gen->nb_philo)
+	{
+		pthread_mutex_lock(&ph->gen->tab_philo[i].nb_eat.mutex);
+		if ((size_t) ph->gen->tab_philo[i].nb_eat.muted < ph->gen->enought)
+		{
+			pthread_mutex_unlock(&ph->gen->tab_philo[i].nb_eat.mutex);
+			return ;
+		}
+		pthread_mutex_unlock(&ph->gen->tab_philo[i].nb_eat.mutex);
+		i++;
+	}
+	pthread_mutex_lock(&ph->gen->dead.mutex);
+	ph->gen->dead.muted = 1;
+	pthread_mutex_unlock(&ph->gen->dead.mutex);
+	print(ENOU, ph);
 }

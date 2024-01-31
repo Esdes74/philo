@@ -6,7 +6,7 @@
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 15:07:12 by eslamber          #+#    #+#             */
-/*   Updated: 2024/01/29 18:27:41 by eslamber         ###   ########.fr       */
+/*   Updated: 2024/01/31 11:08:33 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define SLEE "is sleeping"
 # define THIN "is thinking"
 # define DIED "died"
+# define ENOU "they have enought eaten"
 
 typedef struct s_mutex
 {
@@ -32,8 +33,9 @@ typedef struct s_mutex
 
 typedef struct s_gen
 {
+	int				stop_enought;
 	size_t			nb_philo;
-	size_t			nb_eat;
+	size_t			enought;
 	t_mutex			dead;
 	t_mutex			*forks;
 	pthread_mutex_t	mx_print;
@@ -50,6 +52,7 @@ typedef struct s_philo
 	size_t			id;
 	pthread_t		id_th;
 	struct timeval	eat;
+	t_mutex			nb_eat;
 	t_mutex			*fork;
 	t_mutex			*next_fork;
 	t_gen			*gen;
@@ -59,6 +62,7 @@ enum	e_err
 {
 	ARG,
 	ARG_NEGATIF,
+	ZERO_PHILOS,
 	MUTEX_INIT,
 	MALLOC,
 	CREAT_THREAD
