@@ -6,7 +6,7 @@
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 15:07:12 by eslamber          #+#    #+#             */
-/*   Updated: 2024/01/31 11:08:33 by eslamber         ###   ########.fr       */
+/*   Updated: 2024/01/31 11:56:47 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ int		philo(t_gen *inf);
 void	*behavior(void *philo);
 
 int		eating(t_philo *ph);
+
+void	mod_nb_eat(t_philo *ph);
 
 void	wait_threads(t_gen *inf);
 

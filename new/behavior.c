@@ -6,7 +6,7 @@
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 14:31:32 by eslamber          #+#    #+#             */
-/*   Updated: 2024/01/31 11:27:52 by eslamber         ###   ########.fr       */
+/*   Updated: 2024/01/31 11:50:32 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	*behavior(void *philo)
 
 	ph = (t_philo *) philo;
 	pthread_mutex_lock(&ph->gen->mx_init);
+	print(THIN, ph);
 	gettimeofday(&ph->eat, NULL);
 	pthread_mutex_unlock(&ph->gen->mx_init);
-	print(THIN, ph);
 	if (ph->id % 2 != 0)
 		usleep(ph->gen->eat.tv_sec * 1000000 + ph->gen->eat.tv_usec + 500);
 	while (check_died(ph) == 0)
@@ -33,13 +33,7 @@ void	*behavior(void *philo)
 		while (check_died(ph) == 0 && eating(ph) == 1)
 			starving(ph);
 		enought(ph);
-		starving(ph);
-		if (check_died(ph) != 0)
-			return (NULL);
 		sleeping(ph);
-		starving(ph);
-		if (check_died(ph) != 0)
-			return (NULL);
 		print(THIN, ph);
 		starving(ph);
 	}

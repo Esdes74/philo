@@ -6,7 +6,7 @@
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:26:44 by eslamber          #+#    #+#             */
-/*   Updated: 2024/01/31 11:20:02 by eslamber         ###   ########.fr       */
+/*   Updated: 2024/01/31 12:03:34 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,17 @@ int	eating(t_philo *ph)
 	if (taking_forks(ph) != 0)
 		return (1);
 	print(EATI, ph);
-	pthread_mutex_lock(&ph->nb_eat.mutex);
-	ph->nb_eat.muted++;
-	pthread_mutex_unlock(&ph->nb_eat.mutex);
-	gettimeofday(&ph->gen->die, NULL);
+	mod_nb_eat(ph);
+	gettimeofday(&ph->eat, NULL);
 	gettimeofday(&now, NULL);
 	gettimeofday(&waited, NULL);
 	comp.tv_usec = (1000000 + waited.tv_usec - now.tv_usec) % 1000000;
 	comp.tv_sec = waited.tv_sec - now.tv_sec - \
 	(waited.tv_usec < now.tv_usec);
-	while (check_died(ph) == 0 && compare_time(ph->gen->sleep, comp) < 0)
+	while (check_died(ph) == 0 && compare_time(ph->gen->eat, comp) < 0)
 	{
 		starving(ph);
 		usleep(100);
-		starving(ph);
 		gettimeofday(&waited, NULL);
 		comp.tv_usec = (1000000 + waited.tv_usec - now.tv_usec) % 1000000;
 		comp.tv_sec = waited.tv_sec - now.tv_sec - \
@@ -59,7 +56,7 @@ static int	taking_forks(t_philo *ph)
 		ph->fork->muted = ph->id;
 		print(FORK, ph);
 	}
-	if ((size_t) ph->fork->muted == ph->id)
+	if ((size_t) ph->fork->muted == ph->id && ph->gen->nb_philo > 1)
 		flag--;
 	pthread_mutex_unlock(&ph->fork->mutex);
 	pthread_mutex_lock(&ph->next_fork->mutex);

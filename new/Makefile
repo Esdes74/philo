@@ -6,7 +6,7 @@
 #    By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 15:06:57 by eslamber          #+#    #+#              #
-#    Updated: 2024/01/29 18:29:52 by eslamber         ###   ########.fr        #
+#    Updated: 2024/01/31 11:56:59 by eslamber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRC := main.c \
 	   philo.c \
 	   behavior.c \
 	   eating.c \
+	   mod_nb_eat.c \
 	   wait_threads.c \
 	   compare_time.c \
 	   print.c \
