@@ -6,7 +6,7 @@
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 10:38:47 by eslamber          #+#    #+#             */
-/*   Updated: 2023/11/16 17:03:19 by eslamber         ###   ########.fr       */
+/*   Updated: 2024/02/02 16:50:04 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@
 # define ER 2
 # define MSG "Error\n"
 
-typedef enum e_type {
+typedef enum e_type
+{
 	CHAR = 0,
 	INT = 1,
 	STRING = 2,
@@ -44,24 +45,28 @@ typedef enum e_type {
 	PID = 16,
 }	t_type;
 
-typedef enum e_bool{
+typedef enum e_bool
+{
 	FALSE = 0,
 	TRUE = 1
 }	t_bool;
 
-typedef struct s_data {
+typedef struct s_data
+{
 	t_type	type_data;
 	t_bool	allowed;
 	void	*data;
 }	t_data;
 
-typedef struct s_cell {
+typedef struct s_cell
+{
 	t_data			*data_cell;
 	struct s_cell	*prev;
 	struct s_cell	*next;
 }	t_cell;
 
-typedef struct s_list {
+typedef struct s_list
+{
 	size_t	len;
 	size_t	len_ind;
 	t_type	type_lst;
@@ -70,18 +75,21 @@ typedef struct s_list {
 }	t_list;
 
 // Prototype
-typedef struct s_head_tree {
+typedef struct s_head_tree
+{
 	size_t	len_uplet;
 	t_data	*data;
 	t_list	*leaves;
 }	t_tree;
 
-typedef struct s_p {
+typedef struct s_p
+{
 	size_t	ind;
 	int		fd;
 }	t_p;
 
-typedef struct s_p_a {
+typedef struct s_p_a
+{
 	int	mod;
 	int	fd;
 }	t_p_a;

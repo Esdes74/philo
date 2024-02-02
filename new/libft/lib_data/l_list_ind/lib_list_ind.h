@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lib_list_ind.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eslamber <eslamber@student.42.ft>          +#+  +:+       +#+        */
+/*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 11:09:34 by eslamber          #+#    #+#             */
-/*   Updated: 2023/02/10 17:56:15 by eslamber         ###   ########.fr       */
+/*   Updated: 2024/02/02 16:51:13 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 # define DEBUG 1
 # define NODEB 0
 
-typedef enum e_type {
+typedef enum e_type
+{
 	CHAR = 0,
 	INT = 1,
 	STRING = 2,
@@ -36,24 +37,28 @@ typedef enum e_type {
 	PID = 16,
 }	t_type;
 
-typedef enum e_bool{
+typedef enum e_bool
+{
 	FALSE = 0,
 	TRUE = 1
 }	t_bool;
 
-typedef struct s_data {
+typedef struct s_data
+{
 	t_type	type_data;
 	t_bool	allowed;
 	void	*data;
 }	t_data;
 
-typedef struct s_cell {
+typedef struct s_cell
+{
 	t_data			*data_cell;
 	struct s_cell	*prev;
 	struct s_cell	*next;
 }	t_cell;
 
-typedef struct s_list {
+typedef struct s_list
+{
 	size_t	len;
 	size_t	len_ind;
 	t_type	type_list;

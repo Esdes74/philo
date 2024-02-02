@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lib_simple.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eslamber <eslamber@student.42.ft>          +#+  +:+       +#+        */
+/*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 11:03:37 by eslamber          #+#    #+#             */
-/*   Updated: 2023/01/04 11:04:19 by eslamber         ###   ########.fr       */
+/*   Updated: 2024/02/02 16:51:31 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 # define LIB_SIMPLE_H
 # include <stdlib.h>
 
-typedef struct s_listft{
+typedef struct s_listft
+{
 	void			*content;
 	struct s_listft	*next;
 }	t_listft;

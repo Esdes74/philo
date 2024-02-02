@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lib_print.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eslamber <eslamber@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 20:56:43 by eslamber          #+#    #+#             */
-/*   Updated: 2023/02/25 17:11:32 by eslamber         ###   ########.fr       */
+/*   Updated: 2024/02/02 16:49:30 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,14 @@
 # define ER 2
 # define MSG "Error\n"
 
-typedef struct s_print{
+typedef struct s_print
+{
 	size_t	ind;
 	int		fd;
 }	t_print;
 
-typedef struct s_print_a{
+typedef struct s_print_a
+{
 	int	mod;
 	int	fd;
 }	t_print_a;

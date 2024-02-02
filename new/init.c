@@ -6,14 +6,14 @@
 /*   By: eslamber <eslamber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 14:41:36 by eslamber          #+#    #+#             */
-/*   Updated: 2024/01/31 11:01:55 by eslamber         ###   ########.fr       */
+/*   Updated: 2024/02/02 16:48:52 by eslamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 static struct timeval	init_time(int ag);
-static void	fill_enought(int ac, char **av, t_gen *inf);
+static void				fill_enought(int ac, char **av, t_gen *inf);
 
 void	init(int ac, char **av, t_gen *inf)
 {
